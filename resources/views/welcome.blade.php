@@ -6,7 +6,11 @@
             <aside class="col-xs-4">
                 {!! Form::open(['route' => 'tasks.store']) !!}
                     <div class="form-group">
+                        {!! Form::label('status', 'ステータス:') !!}
                         {!! Form::textarea('status', old('status'), ['class' => 'form-control', 'rows' => '2']) !!}
+                    </div>    
+                    <div class="form-group">
+                        {!! Form::label('content', 'タスク:') !!}    
                         {!! Form::textarea('content', old('content'), ['class' => 'form-control', 'rows' => '5']) !!}
                     </div>
                     {!! Form::submit('Post', ['class' => 'btn btn-primary btn-block']) !!}
