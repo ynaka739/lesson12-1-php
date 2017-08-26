@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Message;    // 追加
+use App\Task;    // 追加
 
 class TasksController extends Controller
 {
@@ -98,19 +98,17 @@ class TasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $this->validate($request, [
             'status' => 'required|max:10',   
             'content' => 'required|max:255',
         ]);
 
-         if (\Auth::user()->id === $task->user_id) {
-        $request->user()->tasks()->update([
-            'status' => $request->status,
-            'content' => $request->content,
-        ]);
-        }
+        $task = Task::find($id);
+        $task->status = $request->status;    
+        $task->content = $request->content;
+        $task->save();
 
         return redirect('/');
     }
@@ -123,7 +121,7 @@ class TasksController extends Controller
      */
     public function destroy($id)
     {
-        $task = App\Task::find($id);
+        $task = Task::find($id);
         
         if (\Auth::user()->id === $task->user_id) {
             $task->delete();

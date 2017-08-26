@@ -17,6 +17,10 @@
             </div>
             <div>
                 @if (Auth::user()->id == $task->user_id)
+                    {!! Form::open(['route' => ['tasks.edit', $task->id], 'method' => 'get']) !!}
+                        {!! Form::submit('Edit', ['class' => 'btn btn-primary btn-xs']) !!}
+                    {!! Form::close() !!}
+                
                     {!! Form::open(['route' => ['tasks.destroy', $task->id], 'method' => 'delete']) !!}
                         {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
                     {!! Form::close() !!}

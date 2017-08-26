@@ -3,7 +3,14 @@
 @section('content')
     @if (Auth::check())
         <div class="row">
-            <aside class="col-md-4">
+            <aside class="col-xs-4">
+                {!! Form::open(['route' => 'tasks.store']) !!}
+                    <div class="form-group">
+                        {!! Form::textarea('status', old('status'), ['class' => 'form-control', 'rows' => '2']) !!}
+                        {!! Form::textarea('content', old('content'), ['class' => 'form-control', 'rows' => '5']) !!}
+                    </div>
+                    {!! Form::submit('Post', ['class' => 'btn btn-primary btn-block']) !!}
+                {!! Form::close() !!}
             </aside>
             <div class="col-xs-8">
                 @if (count($tasks) > 0)
