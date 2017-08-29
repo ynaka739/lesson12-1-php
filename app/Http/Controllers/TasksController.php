@@ -70,10 +70,15 @@ class TasksController extends Controller
     public function show($id)
     {
         $task = Task::find($id);
+        
+        if (\Auth::user()->id === $task->user_id) {
 
         return view('tasks.show', [
             'task' => $task,
         ]);
+        }
+        
+        return redirect('/');
     }
 
     /**
@@ -86,9 +91,14 @@ class TasksController extends Controller
     {
         $task = Task::find($id);
 
+        if (\Auth::user()->id === $task->user_id) {
         return view('tasks.edit', [
             'task' => $task,
         ]);
+        }
+        
+        return redirect('/');
+        
     }
 
     /**
@@ -106,11 +116,14 @@ class TasksController extends Controller
         ]);
 
         $task = Task::find($id);
+        
+        if (\Auth::user()->id === $task->user_id) {
         $task->status = $request->status;    
         $task->content = $request->content;
         $task->save();
-
-        return redirect('/');
+        }
+        
+        return redirect()->back();
     }
 
     /**
